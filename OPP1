@@ -1,0 +1,62 @@
+package thBuoi3;
+import java.util.Scanner;
+public class SDSinhVien {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		SinhVien a = new SinhVien();
+		a.nhapSV();
+		a.nhapDiemSV();
+		a.dangKyHP();
+		a.inSV();
+		int n;
+		// nhập ds SV
+		System.out.println("Nhập số lượng sinh viên: ");
+		n = sc.nextInt();
+		SinhVien List[] = new SinhVien[n+1];
+		for(int i=0 ; i<n; i++) {
+			System.out.println("Thông tin sinh viên "+ (i+1) + ": ");
+			List[i] = new SinhVien();
+			List[i].nhapSV();
+			List[i].nhapDiemSV();
+		}
+		
+		double maxSV = List[0].diemTrungBinh();
+		int pos = 0;
+		// SV bị cảnh báo học vụ
+		System.out.println("Những sinh viên bị cảnh báo học vụ:");
+		for(int i=0 ; i<n; i++) {
+			if(maxSV < List[i].diemTrungBinh()) {
+				maxSV = List[i].diemTrungBinh();
+				pos = i;
+			}
+			if(List[i].diemTrungBinh()<=1.00) 	List[i].inSV();
+		}
+		// SV có đtb cao I
+		System.out.println("Sinh viên có điểm trung bình cao nhất lớp: \n" + List[pos]);
+		for(int i=0 ; i<n; i++) {
+			System.out.println("Thông tin sinh viên "+ (i+1) + ": ");
+			List[i].inSV();
+		}
+		// sắp xếp ds SV
+		for(int i = 0;i<n;i++) {
+			for(int j = i+1; j<n; j++) {
+				if((List[i].gethoTen()).compareToIgnoreCase(List[j].gethoTen())>0) {
+					SinhVien temp = new SinhVien(List[i]);
+					List[i] = new SinhVien(List[j]);
+					List[j] = new SinhVien(temp);
+				}
+			}
+		}
+		// in ds SV
+		for(int i=0 ; i<n; i++) {
+			System.out.println("Thông tin sinh viên "+ (i+1) + ": ");
+			List[i].inSV();
+		}
+		
+		
+		
+
+	}
+
+}
